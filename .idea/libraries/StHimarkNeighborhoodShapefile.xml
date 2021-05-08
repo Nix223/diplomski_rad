@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="StHimarkNeighborhoodShapefile">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/MC2/data/StHimarkNeighborhoodShapefile.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
