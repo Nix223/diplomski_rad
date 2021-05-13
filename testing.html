@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+[<!DOCTYPE HTML>
 
 
    
@@ -66,15 +66,19 @@
           map = new Map("mapCanvas", {
             basemap: "gray",
             center: [-41.647, 36.41],
-            zoom: 3,
+            zoom: 1,
             slider: false
           });
 
           function generateFeatureCollection (fileName) {
+            fileName= "MC2\\data\\StHimarkNeighborhoodShapefile.zip"
+            console.log(fileName)
             var name = fileName.split(".");
             //Chrome and IE add c:\fakepath to the value - we need to remove it
             //See this link for more info: http://davidwalsh.name/fakepath
             name = name[0].replace("c:\\fakepath\\", "");
+
+            console.log(name)
 
             dom.byId('upload-status').innerHTML = '<b>Loading… </b>' + name;
 
@@ -143,10 +147,11 @@
               });
               //associate the feature with the popup on click to enable highlight and zoom to
               featureLayer.on('click', function (event) {
+                console.log(event.graphic)
                 map.infoWindow.setFeatures([event.graphic]);
               });
               //change default symbol if desired. Comment this out and the layer will draw with the default symbology
-              changeRenderer(featureLayer);
+
               fullExtent = fullExtent ?
                 fullExtent.union(featureLayer.fullExtent) : featureLayer.fullExtent;
               layers.push(featureLayer);
@@ -176,7 +181,7 @@
               case 'esriGeometryPolygon':
                 symbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
                   new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
-                    new Color([112, 112, 112]), 1), new Color([136, 136, 136, 0.25]));
+                    new Color([255, 0, 0]), 1), new Color([255, 0, 0, ]));
                 break;
             }
             if (symbol) {
@@ -207,4 +212,4 @@
     </div>
     <div id="mapCanvas" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'"></div>
   </div>
-</body>
+</body>]
