@@ -70,9 +70,8 @@
             slider: false
           });
 
-          function generateFeatureCollection (fileName) {
+          function generateFeatureCollection () {
             fileName= "MC2\\data\\StHimarkNeighborhoodShapefile.zip"
-            console.log(fileName)
             var name = fileName.split(".");
             //Chrome and IE add c:\fakepath to the value - we need to remove it
             //See this link for more info: http://davidwalsh.name/fakepath
@@ -120,6 +119,7 @@
                   return;
                 }
                 var layerName = response.featureCollection.layers[0].layerDefinition.name;
+
                 dom.byId('upload-status').innerHTML = '<b>Loaded: </b>' + layerName;
                 addShapefileToMap(response.featureCollection);
               }),
@@ -139,22 +139,71 @@
             //for an example of how to work with local storage.
             var fullExtent;
             var layers = [];
-
+            console.log(featureCollection.layers)
+            let renderer = {
+              type: "unique-value",  // autocasts as new UniqueValueRenderer()
+              field: "Color",
+              defaultSymbol: { type: "simple-fill" },  // autocasts as new SimpleFillSymbol()
+              uniqueValueInfos: [{
+                // All features with value of "North" will be blue
+                value: "0",
+                symbol: {
+                  type: "simple-fill",  // autocasts as new SimpleFillSymbol()
+                  color: "blue"
+                }
+              }, {
+                // All features with value of "East" will be green
+                value: "1",
+                symbol: {
+                  type: "simple-fill",  // autocasts as new SimpleFillSymbol()
+                  color: "green"
+                }
+              }, {
+                // All features with value of "South" will be red
+                value: "2",
+                symbol: {
+                  type: "simple-fill",  // autocasts as new SimpleFillSymbol()
+                  color: "red"
+                }
+              }, {
+                // All features with value of "West" will be yellow
+                value: "3",
+                symbol: {
+                  type: "simple-fill",  // autocasts as new SimpleFillSymbol()
+                  color: "yellow"
+                }
+              },{
+                // All features with value of "South" will be red
+                value: "4",
+                symbol: {
+                  type: "simple-fill",  // autocasts as new SimpleFillSymbol()
+                  color: "red"
+                }
+              },{
+                // All features with value of "South" will be red
+                value: "5",
+                symbol: {
+                  type: "simple-fill",  // autocasts as new SimpleFillSymbol()
+                  color: "red"
+                }
+              }],  
+            };
+            console.log(renderer)
             arrayUtils.forEach(featureCollection.layers, function (layer) {
               var infoTemplate = new InfoTemplate("Details", "${*}");
               var featureLayer = new FeatureLayer(layer, {
-                infoTemplate: infoTemplate
+                infoTemplate: new InfoTemplate(" ", "${Color}"),
+                mode: FeatureLayer.MODE_ONDEMAND,
+                renderer: renderer,
               });
               //associate the feature with the popup on click to enable highlight and zoom to
               featureLayer.on('click', function (event) {
-                console.log(event.graphic)
                 map.infoWindow.setFeatures([event.graphic]);
               });
-              //change default symbol if desired. Comment this out and the layer will draw with the default symbology
 
+              console.log(featureLayer)
               fullExtent = fullExtent ?
                 fullExtent.union(featureLayer.fullExtent) : featureLayer.fullExtent;
-              layers.push(featureLayer);
             });
             map.addLayers(layers);
             map.setExtent(fullExtent.expand(1.25), true);
@@ -163,30 +212,55 @@
           }
 
           function changeRenderer (layer) {
-            //change the default symbol for the feature collection for polygons and points
-            var symbol = null;
-            switch (layer.geometryType) {
-              case 'esriGeometryPoint':
-                symbol = new PictureMarkerSymbol({
-                  'angle': 0,
-                  'xoffset': 0,
-                  'yoffset': 0,
-                  'type': 'esriPMS',
-                  'url': 'https://static.arcgis.com/images/Symbols/Shapes/BluePin1LargeB.png',
-                  'contentType': 'image/png',
-                  'width': 20,
-                  'height': 20
-                });
-                break;
-              case 'esriGeometryPolygon':
-                symbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-                  new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
-                    new Color([255, 0, 0]), 1), new Color([255, 0, 0, ]));
-                break;
-            }
-            if (symbol) {
-              layer.setRenderer(new SimpleRenderer(symbol));
-            }
+            let renderer = {
+              type: "unique-value",  // autocasts as new UniqueValueRenderer()
+              field: "Color",
+              defaultSymbol: { type: "simple-fill" },  // autocasts as new SimpleFillSymbol()
+              uniqueValueInfos: [{
+                // All features with value of "North" will be blue
+                value: "0",
+                symbol: {
+                  type: "simple-fill",  // autocasts as new SimpleFillSymbol()
+                  color: "white"
+                }
+              }, {
+                // All features with value of "East" will be green
+                value: "1",
+                symbol: {
+                  type: "simple-fill",  // autocasts as new SimpleFillSymbol()
+                  color: "#FFF5F0"
+                }
+              }, {
+                // All features with value of "South" will be red
+                value: "2",
+                symbol: {
+                  type: "simple-fill",  // autocasts as new SimpleFillSymbol()
+                  color: "red"
+                }
+              }, {
+                // All features with value of "West" will be yellow
+                value: "3",
+                symbol: {
+                  type: "simple-fill",  // autocasts as new SimpleFillSymbol()
+                  color: "yellow"
+                }
+              },{
+                // All features with value of "South" will be red
+                value: "4",
+                symbol: {
+                  type: "simple-fill",  // autocasts as new SimpleFillSymbol()
+                  color: "red"
+                }
+              },{
+                // All features with value of "South" will be red
+                value: "5",
+                symbol: {
+                  type: "simple-fill",  // autocasts as new SimpleFillSymbol()
+                  color: "#FFF5F0"
+                }
+              }],  
+            };
+            layer.setRenderer(renderer);
           }
         });
     </script>
