@@ -48,6 +48,8 @@
 
         document.getElementById("uploadForm").addEventListener("change", function (event) {
           var fileName = event.target.value.toLowerCase();
+          console.log(event)
+          console.log(fileName)
 
           if (fileName.indexOf(".zip") !== -1) {//is file a zip - if not notify user
             generateFeatureCollection(fileName);
@@ -102,7 +104,6 @@
 
         view.zoom = 20;  // Sets the zoom LOD to 13
 
-        var fileForm = document.getElementById("mainWindow");
 
         function generateFeatureCollection(fileName) {
 

@@ -1,29 +1,26 @@
 import logo from './logo.svg';
 import './App.css';
 import MapGenerator from './MapGenerator';
+import React from 'react';
+
+class Main extends React.Component {
+
+  load(e) {
+    console.log("u load samu")
+    console.log(e)
+    var filename = e.target.value.toLowerCase();
+    console.log(filename)
+
+  }
 
 
-
-
-function App() {
-  return (
-    <div className="App">
-       <div id="mainWindow">
-      <div>
-        <div>
-          <form encType="multipart/form-data" method="post" id="uploadForm" onClick="this.style.visibility='hidden';">
-            <div className="field">
-              <label className="file-upload">
-                <input type="file" name="file" id="inFile" />
-              </label>
-            </div>
-          </form>
-        </div>
+  render() {
+    return (
+      <div className="App">
+        <MapGenerator></MapGenerator>
       </div>
-    </div >
-      <MapGenerator></MapGenerator>
-    </div>
-  );
+    );
+  }
 }
 
-export default App;
+export default Main;

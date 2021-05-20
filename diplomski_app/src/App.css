@@ -27,6 +27,26 @@
 .App-link {
   color: #61dafb;
 }
+#viewDiv {
+  padding: 0;
+  margin: 0;
+  height: 400px;
+  width: 500px;
+}
+
+.esri-attribution__powered-by {
+  display: none;
+}
+
+.esri-attribution__sources {
+  display: none;
+}
+#mainWindow {
+  height: 100px;
+  width: 100px;
+  padding: .5em;
+  background-color: #fff;
+}
 
 @keyframes App-logo-spin {
   from {
