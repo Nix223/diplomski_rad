@@ -31,6 +31,7 @@ export default class MapGenerator extends React.Component {
       
               var portalUrl = "https://www.arcgis.com";
               console.log(document.getElementById("uploadForm"))
+              
       
               document.getElementById("uploadForm").addEventListener("change", function (event) {
                 var fileName = event.target.value.toLowerCase();
