@@ -17,10 +17,10 @@ function App() {
           </form>
         </div>
       </div>
-    </div>
-    <div>
+    </div >
+      <div id="viewDiv">
       <MapGenerator></MapGenerator>
-    </div>
+      </div>
     </div>
   );
 }
