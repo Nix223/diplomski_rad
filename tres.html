@@ -1,58 +1,29 @@
- function changeRenderer (layer) {
-            //change the default symbol for the feature collection for polygons and points
-            var symbol = null;
-            for (i=0;i<layer.graphics.length;i++) {
-              switch (layer.graphics[i].attributes["Color"]) {
-                case 0:
-                console.log("0")
-                  symbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-                  new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
-                    new Color([0,0,255]), 1), new Color([255,245,240, 0.25]));
-                  break;
-                case 1:
-                console.log("1")
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://js.arcgis.com/3.36/esri/css/esri.css">
+    <style>
+      html, body, #map {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <script src="https://js.arcgis.com/3.36/"></script>
+    <script>
+      var map;
 
-                  symbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-                  new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
-                    new Color([0,0,255]), 1), new Color([254,224,210, 0.25]));
-                  break;
-                case 2:
-                console.log("2")
+      require(["esri/map", "dojo/domReady!"], function(Map) {
+        map = new Map("map", {
+          basemap: "topo",  
+          center: [-122.45, 37.75], 
+          zoom: 13
+        });
+      });
+    </script>
+  </head>
 
-                symbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-                new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
-                  new Color([0,0,255]), 1), new Color([252 ,187,161, 0.25]));
-                break;
-                case 3:
-                console.log("3")
-
-                symbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-                new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
-                  new Color([0,0,255]), 1), new Color([251 ,106,74, 0.25]));
-                break;
-                case 4:
-                console.log("4")
-
-                symbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-                new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
-                  new Color([0,0,255]), 1), new Color([239 ,59,44, 0.25]));
-                break;
-                case 5:
-                console.log("5")
-
-                symbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-                new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
-                  new Color([0,0,255]), 1), new Color([203 ,24,29, 0.25]));
-                break;
-                default:
-                symbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-                new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
-                  new Color([0,0,255]), 1), new Color([203 ,24,29, 0.25]));
-                  break;
-              }
-              console.log(symbol)
-              if (symbol) {
-                layer.setRenderer(new SimpleRenderer(symbol));
-              }
-            }
-          }
+  <body>
+    <div id="map"></div>
+  </body>
+</html>

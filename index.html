@@ -1,0 +1,17 @@
+<html>
+
+<body>
+    <div id="root">
+        <div>
+</body>
+
+<script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+<script>
+    const rootEl = document.getElementById('root')
+    const spanElement = React.createElement('span', {}, 'SPAN!')
+    const element= React.createElement('h1', {id:'header'},'Hey there', spanElement)
+    ReactDOM.render(element,rootEl)
+</script>
+
+</html>
