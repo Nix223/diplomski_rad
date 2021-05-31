@@ -188,7 +188,9 @@ const MapGenerator = () => {
         </div>
       </form>
       <div id="viewDiv"></div>
+      <div id="linecharts" >
       <Hood hoodData={hoodData}></Hood>
+      </div>
     </div>
   );
 };

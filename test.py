@@ -26,7 +26,7 @@ for i in range(1, 20):
                     terminate = True
                     break
                 if obj_time >= date_time_obj_start and divmod((obj_time - date_time_obj_start).total_seconds(), 60)[
-                    0] < 360:
+                    0] < 60:
                     # print("in interval :D ")
                     interval.append(obj)
                     # print(obj)
@@ -110,8 +110,7 @@ for i in range(1, 20):
                     interval = []
                     data[str(date_time_obj_start)] = {'minimumVals': str(minVals), 'maximumVals': str(maxVals),
                                                       'meanVals': str(mean)}
-                    date_time_obj_start = date_time_obj_start + datetime.timedelta(minutes=360)
-                    print("increment time ++ " + str(date_time_obj_start))
+                    date_time_obj_start = date_time_obj_start + datetime.timedelta(minutes=60)
             if terminate:
                 break
     if (len(interval) != 0):
@@ -191,6 +190,6 @@ for i in range(1, 20):
                                           'meanVals': str(mean)}
         interval = []
     json_data = json.dumps(data)
-    with open('C:/Users/NikolaKudoic/diplomski_rad/locations/interval6hour_location_' + str(i) + '.json', 'w') as outfile:
+    with open('C:/Users/NikolaKudoic/diplomski_rad/intervaled/1hours/interval1hours_location_' + str(i) + '.json', 'w') as outfile:
         json.dump(data, outfile)
 # print(d)

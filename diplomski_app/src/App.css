@@ -1,10 +1,9 @@
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: minmax(0px, auto);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -13,33 +12,78 @@
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
 #viewDiv {
   padding: 0;
   margin: 0;
-  height: 400px;
-  width: 500px;
+  height: 350px;
+  width: 450px;
+  grid-column: 1;
+  grid-row: 1;
 }
-#lineCharts {
-  padding: 0;
-  margin: 0;
-  height: 400px;
-  width: 500px;
+#linecharts {
+  top: 0px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 50px;
+  grid-auto-rows: minmax(100px, auto);
+  padding-bottom: 10px;
+  grid-column: 2;
+  grid-row: 1;
+}
+#linechart1 {
+  grid-column: 1;
+  grid-row: 1;
+}
+#linechart2 {
+  grid-column: 2;
+  grid-row: 1;
+}
+#linechart3 {
+  grid-column: 3;
+  grid-row: 1;
+}
+#linechart4 {
+  grid-column: 1;
+  grid-row: 2;
+}
+#linechart5 {
+  grid-column: 2;
+  grid-row: 2;
+}
+#linechart6 {
+  grid-column: 3;
+  grid-row: 2;
 }
 
+
+
+#Timeline {
+  padding-top: 20px;
+  height: 200px;
+  width: 1200px;
+  grid-column: 1;
+  grid-row: 2;
+}
+#heatMapDescription {
+  margin:10px;
+  width: 1200px;
+  height: 20px;
+}
+
+#HeatMap {
+  margin-top: 20px;
+  float: left;
+  clear: none;
+  grid-column: 1;
+  grid-row: 3;
+}
+#regionText {
+  position: relative;
+  left: 1200px;
+  top: 150px;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+}
 
 .esri-attribution__powered-by {
   display: none;
@@ -49,12 +93,82 @@
   display: none;
 }
 #mainWindow {
-  height: 100px;
-  width: 100px;
-  padding: .5em;
+  text-align: center;
+  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: minmax(0px, auto);
+  grid-column: 1;
+  grid-row: 1;
+  height: 380px;
+  width: 500px;
+  padding: 0.5em;
   background-color: #fff;
 }
 
+#scatterPlots {
+  /* display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: minmax(100px, auto); */
+  grid-column: 2;
+  grid-row: 3;
+}
+
+#scatterPlot1 {
+  display: inline-block;
+  grid-column: 1;
+  grid-row: 1;
+}
+#scatterPlot2 {
+  grid-column: 1;
+  grid-row: 2;
+  height : 300px;
+}
+#scatterPlot3 {
+  grid-column: 1;
+  grid-row: 3;
+  height : 300px;
+
+}
+#intervalMenu {
+  grid-column: 2;
+  grid-row: 1;
+  width: 100px;
+}
+
+#categoryMenu {
+  grid-column: 1;
+  grid-row: 1;
+  width: 100px;
+
+}
+
+#menus {
+  padding-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: minmax(0px, auto);
+  width: 200px;
+  height: 50px;
+  grid-column: 2;
+  grid-row: 2;
+
+}
+#menu {
+  width:100px;
+  height:100px;
+  margin:0px;
+}
+
+#ChartDescription{
+  width:300px;
+  grid-column: 3;
+  grid-row: 1;
+}
+#BarCharts {
+  grid-column: 3;
+  grid-row: 3;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

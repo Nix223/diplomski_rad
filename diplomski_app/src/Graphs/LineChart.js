@@ -1,68 +1,13 @@
 import "../App.css";
-import React, { useState } from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import * as d3 from "d3";
 
-class LineChart extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: this.props.data,
-      color: this.props.color
-    };
-
-    this.makeLineChart = this.makeLineChart.bind(this);
-
-  }
-
-  shouldComponentUpdate() {
-    return false;
-  }
-
-  componentDidUpdate() {
-    this.makeLineChart()
-  }
-
-  makeLineChart() {
-
-    console.log(this.props.data)
-    console.log(this.state.color)
-    var json = require("C://Users//NikolaKudoic//diplomski_rad//diplomski_app//src//locations//interval6hourmedian//interval6hour_location_1.json");
-    var parseTime = d3.timeParse("%Y-%m-%d %H:%M:%s");
-
-
-    let myMap = new Map(Object.entries(json));
-    let X = Array.from(myMap.keys());
-
-    class Obj {
-      constructor(x, y) {
-        this.x = x;
-        this.y = y;
-      }
-    }
-
-    let data = [];
-    myMap.forEach(function (value, key) {
-      data.push(new Obj(key, value["meanVals"]));
-    });
-
-
-    let sawData = [];
-
-    for (let i = 0; i < data.length; i++) {
-      var mystring = data[i].y;
-      mystring = mystring.replace("[", "");
-      mystring = mystring.replace("]", "");
-      var res = mystring.split(",");
-
-      sawData.push(new Obj(data[i].x, res[0]))
-    }
-
-    var margin = { top: 20, right: 20, bottom: 70, left: 40 },
-      width = 500 - margin.left - margin.right,
-      height = 300 - margin.top - margin.bottom;
-
-    // Parse the date / time
-
+const LineChart = (props) => {
+  const [graph, setGraph] = useState(undefined);
+  const makeLineChart = useCallback(() => {
+    var margin = { top: 40, right: 20, bottom: 75, left: 38},
+      width = 600 - margin.left - margin.right,
+      height = 200 - margin.top - margin.bottom;
 
     var x = d3.scaleBand().range([0, width]).padding(1);
 
@@ -73,8 +18,12 @@ class LineChart extends React.Component {
 
     var yAxis = d3.axisLeft(y);
 
+    d3.select("#linechart" + props.id + "")
+      .selectAll("svg")
+      .remove();
+
     var svg = d3
-      .select("body")
+      .select("#linechart" + props.id + "")
       .append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
@@ -88,7 +37,7 @@ class LineChart extends React.Component {
 
     // scale the range of the data
     x.domain(
-      data.map(function (d) {
+      props.data.map(function (d) {
         return d.x;
       })
     );
@@ -116,12 +65,39 @@ class LineChart extends React.Component {
       .style("text-anchor", "end")
       .text(y);
 
+
+          // text label for the x axis
+    svg
+    .append("text")
+    .attr(
+      "transform",
+      "translate(" + (width+20) + " ," + (height + margin.top -10) + ")"
+    )
+    .style("text-anchor", "end")
+    .style("font", "12px times")
+
+    .text("Time");
+
+  // text label for the y axis
+  svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - margin.left)
+      .attr("x",0 - (height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .style("font", "15px times")
+
+      .text("Damage reported");   
+
+
+
+
     // Add the line
     svg
       .append("path")
-      .datum(sawData)
+      .datum(props.data)
       .attr("fill", "none")
-      .attr("stroke", "steelblue")
+      .attr("stroke", props.color)
       .attr("stroke-width", 1.5)
       .attr(
         "d",
@@ -134,11 +110,27 @@ class LineChart extends React.Component {
             return y(d.y);
           })
       );
-  }
+    svg
+      .append("text")
+      .attr("x", width / 2)
+      .attr("y", 0 - margin.top / 2)
+      .attr("text-anchor", "middle")
+      .style("font-size", "16px")
+      .style("text-decoration", "underline")
+      .text(props.name);
+  }, [props.data]);
 
-  render() {
-    return <div id="lineChart1">{this.makeLineChart()}</div>;
-  }
-}
+  useEffect(() => {
+    if (props.data.length !== 0) {
+      setGraph(makeLineChart());
+    }
+  }, [makeLineChart, props.data]);
+
+  return (
+    <React.Fragment>
+      {graph !== undefined ? <div id="lineChart1">{graph}</div> : ""}
+    </React.Fragment>
+  );
+};
 
 export default LineChart;
